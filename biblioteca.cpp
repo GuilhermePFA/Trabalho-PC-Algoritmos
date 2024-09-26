@@ -88,4 +88,24 @@ void consultarLivro(struct Livro livros[], int *contLivros) {
             }
             break;
         }
+    }
+}
+void removerLivro(struct Livro livros[], int *contLivros){
+    int ID;
+    cout<<"Digite o ID do livro que deverá ser removido: ";
+    cin>>ID;
+    for(int i=0; i<*contLivros; i++){
+        if(ID==livros[i].id){
+            livros[i]=livros[i+1];
+            for(int j=i+1; j<*contLivros; j++){
+                if(j+1==*contLivros){
+                    (*contLivros)--;
+                    break;
+                }
+                livros[j]=livros[j+1];
+            }
+            break;
+        }
+    }
+    cout<<"O livro de id:"<<ID<<" foi removido"<<endl;
 }
