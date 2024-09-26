@@ -9,7 +9,7 @@ struct Livro {
     int anoPublic;
     int id;
     int qtd;
-    string nomeEmprest[10];
+    string nomeEmprest[10] = {A, A, A, A, A, A, A, A, A, A};
 };
 
 void printLivro(struct Livro L){
@@ -25,9 +25,9 @@ void printLivro(struct Livro L){
 void cadastrarLivro(struct Livro livros[], int *contLivros) {
     struct Livro L;
     cout<<"\nDigite o titulo do livro: ";
-    cin >> L.titulo;
+    cin.getline(L.titulo, 50);
     cout<<"\nDigite o nome do autor: ";
-    cin >> L.autor;
+    cin.getline(L.autor, 50);
     cout<<"\nDigite a quantidade de paginas: ";
     cin >> L.numPag;
     cout<<"\nDigite o ano de publicação: ";
@@ -40,9 +40,6 @@ void cadastrarLivro(struct Livro livros[], int *contLivros) {
         cout<<"\nDigite um numero ate 10: ";
         cin>>L.qtd;
     }
-    cout<<"\nDigite o nome de quem pegou o livro: ";
-    cin >> L.nomeEmprest[10];
-
     livros[*contLivros] = L;
     (*contLivros)++;
 }
@@ -64,7 +61,7 @@ void consultarLivro(struct Livro livros[], int *contLivros) {
                 printLivro(livros[i]);
             }
             break;
-        
+
         case 2:
 
             cout << "Digite o id do livro: " << endl;
@@ -90,6 +87,37 @@ void consultarLivro(struct Livro livros[], int *contLivros) {
         }
     }
 }
+
+void emprestarLivro(struct Livro livros[], int *contLivros){
+    int idLivro;
+    bool existeLivro = false;
+
+    while(existeLivro == false){
+        cout << "Digite o id do livro: ";
+        cin >> idLivro;
+
+
+
+        for(int i = 0; i < *contLivros; i++){
+            if(livros[i].id == idLivro){
+                for(int j = 0; j < 10; j++){
+                    if(livros[i].nomeEmprest[j] == 'A'){
+                        cin.getline(livros[i].nomeEmprest[j], 50);
+                        break;
+                    }
+                }
+                livros[i].qtd--;
+                existeLivro = true;
+                break;
+            }
+        }
+        if(existeLivro == false){
+            cout << "Id nao encontrado: " << endl;
+            cout << "Digite outro id: " << endl;
+        }
+    }
+}
+
 void removerLivro(struct Livro livros[], int *contLivros){
     int ID;
     cout<<"Digite o ID do livro que deverá ser removido: ";
@@ -109,3 +137,4 @@ void removerLivro(struct Livro livros[], int *contLivros){
     }
     cout<<"O livro de id:"<<ID<<" foi removido"<<endl;
 }
+
