@@ -11,6 +11,15 @@ struct Livro {
 	int qtd;
 	string nomeEmprest[10];
 };
+bool checarID(struct Livro livros[], int &contLivros, int ID){
+	bool checkID;
+	for(int i = 0; i<contLivros; i++){
+		if(ID==livros[i].id){
+			return checkID = true;
+		}
+	}
+	return checkID = false;
+}
 
 void printLivro(struct Livro L) {
 	cout << L.titulo << endl;
@@ -37,7 +46,7 @@ void cadastrarLivro(struct Livro livros[], int *contLivros) {
 	cin.ignore();
 	getline(cin, L.titulo);
 	cout<<"\nDigite o nome do autor: ";
-	cin.ignore();
+	//cin.ignore(); estava tirando a primeira letra do nome do autor
 	getline(cin, L.autor);
 	cout<<"\nDigite a quantidade de páginas: ";
 	cin >> L.numPag;
@@ -45,6 +54,10 @@ void cadastrarLivro(struct Livro livros[], int *contLivros) {
 	cin >> L.anoPublic;
 	cout<<"\nDigite o ID: ";
 	cin >> L.id;
+	while(checarID(livros, *contLivros, L.id)){
+		cout<<"Id ja existente, digite outro: ";
+		cin>>L.id;
+	}
 	cout<<"\nDigite o quantidade: ";
 	cin >> L.qtd;
 	while (L.qtd > 10) {
