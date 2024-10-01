@@ -12,10 +12,11 @@ struct Livro {
 	string nomeEmprest[10];
 };
 
-bool checarID(struct Livro livros[], int &contLivros, int ID){
+bool checarID(struct Livro livros[], int &contLivros, int ID, int *pos){
 	bool checkID;
 	for(int i = 0; i<contLivros; i++){
 		if(ID==livros[i].id){
+			*pos=i;
 			return checkID = true;
 		}
 	}
@@ -46,6 +47,7 @@ void printLivro(struct Livro L) {
 
 void cadastrarLivro(struct Livro livros[], int *contLivros) {
 	struct Livro L;
+	int p;
 	cout<<"\nDigite o titulo do livro: ";
 	cin.ignore();
 	getline(cin, L.titulo);
@@ -58,7 +60,7 @@ void cadastrarLivro(struct Livro livros[], int *contLivros) {
 	cin >> L.anoPublic;
 	cout<<"\nDigite o ID: ";
 	cin >> L.id;
-	while(checarID(livros, *contLivros, L.id)){
+	while(checarID(livros, *contLivros, L.id, &p)){
 		cout<<"Id ja existente, digite outro: ";
 		cin>>L.id;
 	}
@@ -167,6 +169,14 @@ void devolverLivro(struct Livro livros[], int *contLivros) {
 			if(livros[i].id == idLivro) {
 				cout << "Digite o nome da pessoa que vai devolver: ";
 				cin >> nomeDevolve;
+				while (existePessoa == false) {
+					cout<<"Essa pessoa não está com o livro selecionado!\nDigite novamente: "<<endl;
+					cin>>nomeDevolve;
+					for(int j = 0; j < 10; j++) {
+					if(livros[i].nomeEmprest[j] == nomeDevolve) {
+						existePessoa = true;	
+					}}
+				}
 				for(int j = 0; j < 10; j++) {
 					if(livros[i].nomeEmprest[j] == nomeDevolve) {
 						cout << "Livro devolvido!"<<endl<<endl;
@@ -176,9 +186,6 @@ void devolverLivro(struct Livro livros[], int *contLivros) {
 						}
 						break;
 					}
-				}
-				if (existePessoa == false) {
-					cout<<"Essa pessoa não está com o livro selecionado!"<<endl;
 				}
 				livros[i].qtd++;
 				existeLivro = true;
@@ -194,25 +201,41 @@ void devolverLivro(struct Livro livros[], int *contLivros) {
 }
 
 void removerLivro(struct Livro livros[], int *contLivros) {
-	int ID;
-	struct Livro livrosNovo[*contLivros];
+	int ID, pos;
 	cout<<"Digite o ID do livro que deverC! ser removido: ";
 	cin>>ID;
+	while(!checarID(livros , *contLivros, ID, &pos)){
+		cout<<"Id não encontrado, digite outro: ";
+		cin>>ID;
+	}
 
-	for(int i=0; i<*contLivros; i++) {
-		if(ID==livros[i].id) {
-			for(int j=i+1; j<*contLivros; j++) {
-				livros[i]=livros[i+1];
-				if(j+1==*contLivros) {
-					break;
+	if(*contLivros==1){
+		livros = NULL;
+		(*contLivros)--;
+	}
+	else if(pos+1==*contLivros){
+		struct Livro livrosNovo[*contLivros-1];
+		for(int i = 0; i<*contLivros-1; i++){
+			livrosNovo[i]=livros[i];
+		}
+		for(int i = 0; i<*contLivros-1; i++){
+			livros[i]=livrosNovo[i];
+		}
+		(*contLivros)--;
+	}
+	else{
+		struct Livro aux[*contLivros-1];
+		for(int i=0; i<*contLivros; i++) {
+			if(ID==livros[i].id){
+				for(int j=i; j<*contLivros; j++){
+					livros[j]=livros[j+1];
 				}
-				livros[j]=livros[j+1];
 			}
-			break;
 		}
 		(*contLivros)--;
 	}
 	cout<<"O livro de id:"<<ID<<" foi removido"<<endl;
+	
 }
 
 int main() {
