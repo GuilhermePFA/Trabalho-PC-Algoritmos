@@ -212,46 +212,44 @@ void devolverLivro(struct Livro livros[], int *contLivros) {
         cin >> idLivro;
     }
 
-    for (int i = 0; i < *contLivros; i++) {
-        if (livros[i].id == idLivro) {
-            bool temEmprestimo = false;
-            for (int j = 0; j < 10; j++) {
-                if (livros[i].nomeEmprest[j] != "") {
-                    temEmprestimo = true;
-                    break;
-                }
-            }
-            if (!temEmprestimo) {
-                cout << "|Esse livro não foi emprestado para ninguém!" << endl;
-                return;
-            }
-            while (!nomeEncontrado) {
-                cout << "|Digite o nome da pessoa que vai devolver o livro: ";
-                cin.ignore();
-                getline(cin, nomeDevolve);
+    bool temEmprestimo = false;
+    for (int j = 0; j < 10; j++) {
+        if (livros[pos].nomeEmprest[j] != "") {
+            temEmprestimo = true;
+            break;
+        }
+    }
 
-                for (int j = 0; j < 10; j++) {
-                    if (livros[i].nomeEmprest[j] == nomeDevolve) {
-                        if (confirma()) {
-                            livros[i].nomeEmprest[j] = "";
-                            livros[i].qtd++;
-                            cout << "|Livro devolvido com sucesso!" << endl;
-                            nomeEncontrado = true;
-                            break;
-                        } else {
-                            cout << "Operação cancelada." << endl;
-                            return;
-                        }
-                    }
-                }
-                if (!nomeEncontrado) {
-                    cout << "|Essa pessoa não está com o livro!" << endl;
+    if (!temEmprestimo) {
+        cout << "|Esse livro não foi emprestado para ninguém!" << endl;
+        return;
+    }
+
+    cin.ignore(); // Limpa o buffer do teclado
+    while (!nomeEncontrado) {
+        cout << "|Digite o nome da pessoa que vai devolver o livro: ";
+        getline(cin, nomeDevolve);
+
+        for (int j = 0; j < 10; j++) {
+            if (livros[pos].nomeEmprest[j] == nomeDevolve) {
+                if (confirma()) {
+                    livros[pos].nomeEmprest[j] = "";  // Remove o nome da lista de empréstimos
+                    livros[pos].qtd++;
+                    cout << "|Livro devolvido com sucesso!" << endl;
+                    nomeEncontrado = true;
+                    break;
+                } else {
+                    cout << "Operação cancelada." << endl;
+                    return;
                 }
             }
         }
+
+        if (!nomeEncontrado) {
+            cout << "|Essa pessoa não está com o livro!" << endl;
+        }
     }
 }
-
 
 void removerLivro(struct Livro livros[], int *contLivros) {
 	int ID, pos;
