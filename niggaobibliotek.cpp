@@ -24,11 +24,11 @@ bool confirma(){
     bool aceita = false;
     int numAceita;
 
-    cout << "Deseja mesmo realizar a ação?" << endl << "1 - SIM\n2 - NÃO" << endl << "Digite: ";
+    cout << "Deseja mesmo realizar a aï¿½ï¿½o?" << endl << "1 - SIM\n2 - Nï¿½O" << endl << "Digite: ";
     cin >> numAceita;
 
     while(numAceita!=1 && numAceita!=2){
-        cout << "Digite um número válido" << endl << "1 - SIM\n2 - NÃO";
+        cout << "Digite um nï¿½mero vï¿½lido" << endl << "1 - SIM\n2 - Nï¿½O";
         cin >> numAceita;
     }
 
@@ -51,12 +51,12 @@ bool checarID(struct Livro livros[], int *contLivros, int ID, int *pos){
 void printLivro(struct Livro L) {
 	string nomes[10];
 	linha();
-	cout << "|T¡tulo: " << L.titulo << endl;
+	cout << "|Tï¿½tulo: " << L.titulo << endl;
 	cout << "|Autor: " << L.autor << endl;
-	cout << "|N£mero de P ginas: " << L.numPag << endl;
-	cout << "|Ano de Publica‡Æo: " << L.anoPublic << endl;
+	cout << "|Nï¿½mero de Pï¿½ginas: " << L.numPag << endl;
+	cout << "|Ano de Publicaï¿½ï¿½o: " << L.anoPublic << endl;
 	cout << "|ID: " << L.id << endl;
-	cout << "|Quantidade Dispon¡vel: " << L.qtd << endl;
+	cout << "|Quantidade Disponï¿½vel: " << L.qtd << endl;
 
 	bool temEmprestimo = false;
 	for (int i = 0; i < sizeof(L.nomeEmprest) / sizeof(L.nomeEmprest[0]); i++) {
@@ -74,7 +74,7 @@ void printLivro(struct Livro L) {
 		}
 	}
 	if (temEmprestimo == false) {
-		cout<<"|Esse livro ainda nÆo foi emprestado!"<<endl;
+		cout<<"|Esse livro ainda nï¿½o foi emprestado!"<<endl;
 	}
 	cout<<"\n";
 }
@@ -87,9 +87,9 @@ void cadastrarLivro(struct Livro livros[], int *contLivros) {
 	getline(cin, L.titulo);
 	cout<<"|Digite o nome do autor: ";
 	getline(cin, L.autor);
-	cout<<"|Digite a quantidade de p ginas: ";
+	cout<<"|Digite a quantidade de pï¿½ginas: ";
 	cin >> L.numPag;
-	cout<<"|Digite o ano de publica‡Æo: ";
+	cout<<"|Digite o ano de publicaï¿½ï¿½o: ";
 	cin >> L.anoPublic;
 	cout<<"|Digite o ID: ";
 	cin >> L.id;
@@ -100,7 +100,7 @@ void cadastrarLivro(struct Livro livros[], int *contLivros) {
 	cout<<"|Digite o quantidade: ";
 	cin >> L.qtd;
 	while (L.qtd > 10) {
-		cout<<"|O limite de livros ‚ 10. Digite um valor v lido: ";
+		cout<<"|O limite de livros ï¿½ 10. Digite um valor vï¿½lido: ";
 		cin>>L.qtd;
 	}
 	livros[*contLivros] = L;
@@ -114,11 +114,11 @@ void consultarLivro(struct Livro livros[], int *contLivros) {
 	bool existeLivro = false;
 
 	cout<<"|1 - Listar todos os livros"<<endl;
-	cout<<"|2 - Listar livro espec¡fico"<<endl;
+	cout<<"|2 - Listar livro especï¿½fico"<<endl;
 	cout<<"|Selecione: ";
 	cin>>opt;
 	while(opt > 2 || opt < 1) {
-		cout<<"|Digite uma op‡Æo existente" << endl;
+		cout<<"|Digite uma opï¿½ï¿½o existente" << endl;
 		cout<<"|1 - Listar todos os livros"<<endl;
 		cout<<"|2 - Listar livro especifico"<<endl;
 		cout<<"|Selecione: ";
@@ -128,7 +128,7 @@ void consultarLivro(struct Livro livros[], int *contLivros) {
 	{
 	case 1:
 		if(*contLivros == 0) {
-			cout << "|NÆo existem livros cadastrados!" << endl<<endl;
+			cout << "|Nï¿½o existem livros cadastrados!" << endl<<endl;
 			break;
 		} else {
 			for(int i = 0; i < *contLivros; i++) {
@@ -139,13 +139,13 @@ void consultarLivro(struct Livro livros[], int *contLivros) {
 
 	case 2:
 		if(*contLivros == 0) {
-			cout << "|NÆo existem livros cadastrados!" << endl<<endl;
+			cout << "|Nï¿½o existem livros cadastrados!" << endl<<endl;
 			break;
 		}
 		cout << "|Digite um ID de livro: ";
 		cin >> idLivro;
 		while (!checarID(livros, contLivros, idLivro, &pos)) {
-			cout << "|Id nÆo encontrado.\n|Digite novamente: ";
+			cout << "|Id nï¿½o encontrado.\n|Digite novamente: ";
         	cin >> idLivro;
 		}
 		for(int i = 0; i < *contLivros; i++) {
@@ -161,37 +161,41 @@ void consultarLivro(struct Livro livros[], int *contLivros) {
 
 void emprestarLivro(struct Livro livros[], int *contLivros) {
 	int idLivro, pos;
-
-	cout << "|Digite um ID de livro: ";
-    cin >> idLivro;
-
-	while (!checarID(livros , contLivros, idLivro, &pos)) {
-        cout << "|Id nÆo encontrado.\n|Digite novamente: ";
-        cin >> idLivro;
+	if (*contLivros == 0){
+		cout<<"|NÃ£o hÃ¡ livros cadastrados."<<endl;
 	}
+	else{
+		cout << "|Digite um ID de livro: ";
+		cin >> idLivro;
 
-	for (int i = 0; i < *contLivros; i++) {
-		if (livros[i].id == idLivro) {
-			if (livros[i].qtd > 0) {
-				for (int j = 0; j < 10; j++) {
-					if (livros[i].nomeEmprest[j] == "") {
-						cin.ignore();
-						cout << "|Digite o nome da pessoa: ";
-						getline(cin, livros[i].nomeEmprest[j]);
-						if(confirma()){
-                            livros[i].qtd--;
-                            cout << "|Livro emprestado com sucesso!" << endl;
-                            break;
-						}else{
-						    livros[i].nomeEmprest[j] = "";
-                            cout << "Operação cancelada" << endl;
-                            return;
+		while (!checarID(livros , contLivros, idLivro, &pos)) {
+			cout << "|Id nï¿½o encontrado.\n|Digite novamente: ";
+			cin >> idLivro;
+		}
+
+		for (int i = 0; i < *contLivros; i++) {
+			if (livros[i].id == idLivro) {
+				if (livros[i].qtd > 0) {
+					for (int j = 0; j < 10; j++) {
+						if (livros[i].nomeEmprest[j] == "") {
+							cin.ignore();
+							cout << "|Digite o nome da pessoa: ";
+							getline(cin, livros[i].nomeEmprest[j]);
+							if(confirma()){
+								livros[i].qtd--;
+								cout << "|Livro emprestado com sucesso!" << endl;
+								break;
+							}else{
+								livros[i].nomeEmprest[j] = "";
+								cout << "Operaï¿½ï¿½o cancelada" << endl;
+								return;
+							}
 						}
 					}
+				} else {
+					cout << "Nï¿½o existem mais cï¿½pias disponï¿½veis para esse livro!" << endl<<endl;
+					return;
 				}
-			} else {
-				cout << "Não existem mais c¢pias dispon¡veis para esse livro!" << endl<<endl;
-				return;
 			}
 		}
 	}
@@ -203,93 +207,102 @@ void devolverLivro(struct Livro livros[], int *contLivros) {
     int idLivro, pos;
     string nomeDevolve;
     bool nomeEncontrado = false;
+	if (*contLivros == 0){
+		cout<<"|NÃ£o hÃ¡ livros cadastrados."<<endl;
+	}
+	else{
+		cout << "|Digite o ID do livro: ";
+		cin >> idLivro;
 
-    cout << "|Digite o ID do livro: ";
-    cin >> idLivro;
+		while (!checarID(livros, contLivros, idLivro, &pos)) {
+			cout << "|Id nï¿½o encontrado.\n|Digite novamente: ";
+			cin >> idLivro;
+		}
 
-    while (!checarID(livros, contLivros, idLivro, &pos)) {
-        cout << "|Id não encontrado.\n|Digite novamente: ";
-        cin >> idLivro;
-    }
+		bool temEmprestimo = false;
+		for (int j = 0; j < 10; j++) {
+			if (livros[pos].nomeEmprest[j] != "") {
+				temEmprestimo = true;
+				break;
+			}
+		}
 
-    bool temEmprestimo = false;
-    for (int j = 0; j < 10; j++) {
-        if (livros[pos].nomeEmprest[j] != "") {
-            temEmprestimo = true;
-            break;
-        }
-    }
+		if (!temEmprestimo) {
+			cout << "|Esse livro nï¿½o foi emprestado para ninguï¿½m!" << endl;
+			return;
+		}
 
-    if (!temEmprestimo) {
-        cout << "|Esse livro não foi emprestado para ninguém!" << endl;
-        return;
-    }
+		cin.ignore(); // Limpa o buffer do teclado
+		while (!nomeEncontrado) {
+			cout << "|Digite o nome da pessoa que vai devolver o livro: ";
+			getline(cin, nomeDevolve);
 
-    cin.ignore(); // Limpa o buffer do teclado
-    while (!nomeEncontrado) {
-        cout << "|Digite o nome da pessoa que vai devolver o livro: ";
-        getline(cin, nomeDevolve);
+			for (int j = 0; j < 10; j++) {
+				if (livros[pos].nomeEmprest[j] == nomeDevolve) {
+					if (confirma()) {
+						livros[pos].nomeEmprest[j] = "";  // Remove o nome da lista de emprï¿½stimos
+						livros[pos].qtd++;
+						cout << "|Livro devolvido com sucesso!" << endl;
+						nomeEncontrado = true;
+						break;
+					} else {
+						cout << "Operaï¿½ï¿½o cancelada." << endl;
+						return;
+					}
+				}
+			}
 
-        for (int j = 0; j < 10; j++) {
-            if (livros[pos].nomeEmprest[j] == nomeDevolve) {
-                if (confirma()) {
-                    livros[pos].nomeEmprest[j] = "";  // Remove o nome da lista de empréstimos
-                    livros[pos].qtd++;
-                    cout << "|Livro devolvido com sucesso!" << endl;
-                    nomeEncontrado = true;
-                    break;
-                } else {
-                    cout << "Operação cancelada." << endl;
-                    return;
-                }
-            }
-        }
-
-        if (!nomeEncontrado) {
-            cout << "|Essa pessoa não está com o livro!" << endl;
-        }
-    }
+			if (!nomeEncontrado) {
+				cout << "|Essa pessoa nï¿½o estï¿½ com o livro!" << endl;
+			}
+		}
+	}
 }
 
 void removerLivro(struct Livro livros[], int *contLivros) {
 	int ID, pos;
-	cout<<"|Digite o ID do livro que deverC! ser removido: ";
-	cin>>ID;
-	while(!checarID(livros , contLivros, ID, &pos)){
-		cout<<"|Id nÆo encontrado, digite outro: ";
-		cin>>ID;
+	if (*contLivros == 0){
+		cout<<"|NÃ£o hÃ¡ livros cadastrados."<<endl;
 	}
+	else{
+		cout<<"|Digite o ID do livro que deverC! ser removido: ";
+		cin>>ID;
+		while(!checarID(livros , contLivros, ID, &pos)){
+			cout<<"|Id nï¿½o encontrado, digite outro: ";
+			cin>>ID;
+		}
 
-	if(confirma()){
-        if(*contLivros==1){
-            livros = NULL;
-            (*contLivros)--;
-        }
-        else if(pos+1==*contLivros){
-            struct Livro livrosNovo[*contLivros-1];
-            for(int i = 0; i<*contLivros-1; i++){
-                livrosNovo[i]=livros[i];
-            }
-            for(int i = 0; i<*contLivros-1; i++){
-                livros[i]=livrosNovo[i];
-            }
-            (*contLivros)--;
-        }
-        else{
-            struct Livro aux[*contLivros-1];
-            for(int i=0; i<*contLivros; i++) {
-                if(ID==livros[i].id){
-                    for(int j=i; j<*contLivros; j++){
-                        livros[j]=livros[j+1];
-                    }
-                }
-            }
-        (*contLivros)--;
-        cout<<"|O livro de id:"<<ID<<" foi removido"<<endl;
-        }
-	}else {
-        cout << "Operação cancelada";
-        return;
+		if(confirma()){
+			if(*contLivros==1){
+				livros = NULL;
+				(*contLivros)--;
+			}
+			else if(pos+1==*contLivros){
+				struct Livro livrosNovo[*contLivros-1];
+				for(int i = 0; i<*contLivros-1; i++){
+					livrosNovo[i]=livros[i];
+				}
+				for(int i = 0; i<*contLivros-1; i++){
+					livros[i]=livrosNovo[i];
+				}
+				(*contLivros)--;
+			}
+			else{
+				struct Livro aux[*contLivros-1];
+				for(int i=0; i<*contLivros; i++) {
+					if(ID==livros[i].id){
+						for(int j=i; j<*contLivros; j++){
+							livros[j]=livros[j+1];
+						}
+					}
+				}
+			(*contLivros)--;
+			cout<<"|O livro de id:"<<ID<<" foi removido"<<endl;
+			}
+		}else {
+			cout << "Operaï¿½ï¿½o cancelada";
+			return;
+		}
 	}
 }
 
