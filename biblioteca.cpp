@@ -1,8 +1,7 @@
 #include <iostream>
 #include <string.h>
 using namespace std;
-/
-// Cria��o do struct livro
+
 struct Livro {
     string titulo;
     string autor;
