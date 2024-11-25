@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string.h>
 using namespace std;
-
-// Criação do struct livro
+/
+// Criaï¿½ï¿½o do struct livro
 struct Livro {
     string titulo;
     string autor;
@@ -13,7 +13,7 @@ struct Livro {
     string nomeEmprest[10];
 };
 
-// printa linhas para organização
+// printa linhas para organizaï¿½ï¿½o
 void linha(){
     cout << "|";
     for(int i = 0; i < 100; i++){
@@ -22,7 +22,7 @@ void linha(){
     cout << "|\n";
 }
 
-// pergunta para o usuário a confirmação de qualquer ação
+// pergunta para o usuï¿½rio a confirmaï¿½ï¿½o de qualquer aï¿½ï¿½o
 bool confirma(){
     bool aceita = false;
     int numAceita;
@@ -37,12 +37,12 @@ bool confirma(){
 
     if(numAceita == 1) aceita = true;
 
-    // se o usuário aceitar, retorna true
-    // caso contrário, retorna falso
+    // se o usuï¿½rio aceitar, retorna true
+    // caso contrï¿½rio, retorna falso
     return aceita;
 }
 
-// indica se um ID já existe
+// indica se um ID jï¿½ existe
 bool checarID(struct Livro livros[], int *contLivros, int ID, int *pos){
     bool checkID;
     for(int i = 0; i < *contLivros; i++){
@@ -52,11 +52,11 @@ bool checarID(struct Livro livros[], int *contLivros, int ID, int *pos){
             return checkID = true;
         }
     }
-    // se o ID não existir, retorna false
+    // se o ID nï¿½o existir, retorna false
     return checkID = false;
 }
 
-// imprime as informações de um livro
+// imprime as informaï¿½ï¿½es de um livro
 void printLivro(struct Livro L) {
     string nomes[10];
     linha();
@@ -69,7 +69,7 @@ void printLivro(struct Livro L) {
 
     // verifica se um livro ja foi emprestado,
     // se ele foi emprestado, imprime todos os nomes
-    // caso contrário, avisa que ele ainda não foi emprestado
+    // caso contrï¿½rio, avisa que ele ainda nï¿½o foi emprestado
     bool temEmprestimo = false;
     for (int i = 0; i < sizeof(L.nomeEmprest) / sizeof(L.nomeEmprest[0]); i++) {
         if (L.nomeEmprest[i] != "") {
@@ -123,17 +123,17 @@ void cadastrarLivro(struct Livro livros[], int *contLivros) {
     cout << "|Livro cadastrado com sucesso!" << endl;
 }
 
-// imprime livros específicos ou todos os cadastrados
+// imprime livros especï¿½ficos ou todos os cadastrados
 void consultarLivro(struct Livro livros[], int *contLivros) {
     int opt = 0, pos;
     int idLivro;
     bool existeLivro = false;
-    // pergunta se o usuário deseja listar um livro específico ou todos que existem
+    // pergunta se o usuï¿½rio deseja listar um livro especï¿½fico ou todos que existem
     cout << "|1 - Listar todos os livros" << endl;
     cout << "|2 - Listar livro especifico" << endl;
     cout << "|Selecione: ";
     cin >> opt;
-    // previne erro do usuário ao digitar uma opção inválida
+    // previne erro do usuï¿½rio ao digitar uma opï¿½ï¿½o invï¿½lida
     while(opt > 2 || opt < 1) {
         cout << "|Digite uma opcao existente" << endl;
         cout << "|1 - Listar todos os livros" << endl;
@@ -143,7 +143,7 @@ void consultarLivro(struct Livro livros[], int *contLivros) {
     }
     switch (opt) {
         case 1:
-            // se não há livros cadastrados, indica esse fato ao usuário.
+            // se nï¿½o hï¿½ livros cadastrados, indica esse fato ao usuï¿½rio.
             if(*contLivros == 0) {
                 cout << "|Nao existem livros cadastrados!" << endl << endl;
                 break;
@@ -156,13 +156,13 @@ void consultarLivro(struct Livro livros[], int *contLivros) {
 
         case 2:
             if(*contLivros == 0) {
-                // se não há livros cadastrados, indica esse fato ao usuário.
+                // se nï¿½o hï¿½ livros cadastrados, indica esse fato ao usuï¿½rio.
                 cout << "|Nao existem livros cadastrados!" << endl << endl;
                 break;
             }
             cout << "|Digite um ID de livro: ";
             cin >> idLivro;
-            // se o ID digitado é inválido, faz o usuário digitar uma opção válida.
+            // se o ID digitado ï¿½ invï¿½lido, faz o usuï¿½rio digitar uma opï¿½ï¿½o vï¿½lida.
             while (!checarID(livros, contLivros, idLivro, &pos)) {
                 cout << "|ID nao encontrado.\n|Digite novamente: ";
                 cin >> idLivro;
@@ -176,18 +176,18 @@ void consultarLivro(struct Livro livros[], int *contLivros) {
     }
 }
 
-// função de emprestar livros
+// funï¿½ï¿½o de emprestar livros
 void emprestarLivro(struct Livro livros[], int *contLivros) {
     int idLivro, pos;
-    // se não há livros cadastrados, indica esse fato ao usuário.
+    // se nï¿½o hï¿½ livros cadastrados, indica esse fato ao usuï¿½rio.
     if (*contLivros == 0){
         cout << "|Nao ha livros cadastrados." << endl;
     }
-    // Faz o usuário digitar o ID de um livro.
+    // Faz o usuï¿½rio digitar o ID de um livro.
     else{
         cout << "|Digite um ID de livro: ";
         cin >> idLivro;
-        // se o ID digitado é inválido, faz o usuário digitar uma opção válida.
+        // se o ID digitado ï¿½ invï¿½lido, faz o usuï¿½rio digitar uma opï¿½ï¿½o vï¿½lida.
         while (!checarID(livros, contLivros, idLivro, &pos)) {
             cout << "|ID nao encontrado.\n|Digite novamente: ";
             cin >> idLivro;
@@ -199,10 +199,10 @@ void emprestarLivro(struct Livro livros[], int *contLivros) {
                     for (int j = 0; j < 10; j++) {
                         if (livros[i].nomeEmprest[j] == "") {
                             cin.ignore();
-                            // Usuário digita o nome de quem emprestou o livro.
+                            // Usuï¿½rio digita o nome de quem emprestou o livro.
                             cout << "|Digite o nome da pessoa: ";
                             getline(cin, livros[i].nomeEmprest[j]);
-                            // Confirmação
+                            // Confirmaï¿½ï¿½o
                             if(confirma()){
                                 livros[i].qtd--;
                                 cout << "|Livro emprestado com sucesso!" << endl;
@@ -214,7 +214,7 @@ void emprestarLivro(struct Livro livros[], int *contLivros) {
                             }
                         }
                     }
-                  // Se não há mais cópias disponíveis, indica isso ao usuário e retorna ao menu.
+                  // Se nï¿½o hï¿½ mais cï¿½pias disponï¿½veis, indica isso ao usuï¿½rio e retorna ao menu.
                 } else {
                     cout << "Nao existem mais copias disponiveis para esse livro!" << endl << endl;
                     return;
@@ -224,26 +224,26 @@ void emprestarLivro(struct Livro livros[], int *contLivros) {
     }
 }
 
-// função de devolver livros
+// funï¿½ï¿½o de devolver livros
 void devolverLivro(struct Livro livros[], int *contLivros) {
     int idLivro, pos;
     string nomeDevolve;
     bool nomeEncontrado = false;
-    // se não há livros cadastrados, indica esse fato ao usuário.
+    // se nï¿½o hï¿½ livros cadastrados, indica esse fato ao usuï¿½rio.
     if (*contLivros == 0){
         cout << "|Nao ha livros cadastrados." << endl;
     }
     else{
 
-        // Faz o usuário digitar o ID de um livro.
+        // Faz o usuï¿½rio digitar o ID de um livro.
         cout << "|Digite o ID do livro: ";
         cin >> idLivro;
-        // se o ID digitado é inválido, faz o usuário digitar uma opção válida.
+        // se o ID digitado ï¿½ invï¿½lido, faz o usuï¿½rio digitar uma opï¿½ï¿½o vï¿½lida.
         while (!checarID(livros, contLivros, idLivro, &pos)) {
             cout << "|ID nao encontrado.\n|Digite novamente: ";
             cin >> idLivro;
         }
-        // Verifica se o livro está atualmente emprestado
+        // Verifica se o livro estï¿½ atualmente emprestado
         bool temEmprestimo = false;
         for (int j = 0; j < 10; j++) {
             if (livros[pos].nomeEmprest[j] != "") {
@@ -251,12 +251,12 @@ void devolverLivro(struct Livro livros[], int *contLivros) {
                 break;
             }
         }
-        // Se o livro não possui empréstimos, indica ao usuário e retorna ao menu.
+        // Se o livro nï¿½o possui emprï¿½stimos, indica ao usuï¿½rio e retorna ao menu.
         if (!temEmprestimo) {
             cout << "|Esse livro nao foi emprestado para ninguem!" << endl;
             return;
         }
-        // Pede ao usuário o nome de alguém que emprestou o livro.
+        // Pede ao usuï¿½rio o nome de alguï¿½m que emprestou o livro.
         cin.ignore();
         while (!nomeEncontrado) {
             cout << "|Digite o nome da pessoa que vai devolver o livro: ";
@@ -265,7 +265,7 @@ void devolverLivro(struct Livro livros[], int *contLivros) {
             for (int j = 0; j < 10; j++) {
                 if (livros[pos].nomeEmprest[j] == nomeDevolve) {
                     if (confirma()) {
-                        livros[pos].nomeEmprest[j] = "";  // Remove o nome da lista de empréstimos.
+                        livros[pos].nomeEmprest[j] = "";  // Remove o nome da lista de emprï¿½stimos.
                         livros[pos].qtd++;
                         cout << "|Livro devolvido com sucesso!" << endl;
                         nomeEncontrado = true;
@@ -276,7 +276,7 @@ void devolverLivro(struct Livro livros[], int *contLivros) {
                     }
                 }
             }
-            // Se a pessoa não estiver com o livro, indica isso ao usuário.
+            // Se a pessoa nï¿½o estiver com o livro, indica isso ao usuï¿½rio.
             if (!nomeEncontrado) {
                 cout << "|Essa pessoa nao esta com o livro!" << endl;
             }
@@ -284,19 +284,19 @@ void devolverLivro(struct Livro livros[], int *contLivros) {
     }
 }
 
-// função de remover livros
+// funï¿½ï¿½o de remover livros
 void removerLivro(struct Livro livros[], int *contLivros) {
     int ID, pos;
-    // se não há livros cadastrados, indica esse fato ao usuário.
+    // se nï¿½o hï¿½ livros cadastrados, indica esse fato ao usuï¿½rio.
     if (*contLivros == 0){
         cout << "|Nao ha livros cadastrados." << endl;
     }
     else{
-        // Faz o usuário digitar o ID de um livro.
+        // Faz o usuï¿½rio digitar o ID de um livro.
         cout << "|Digite o ID do livro que deve ser removido: ";
         cin >> ID;
 
-        // se o ID digitado é inválido, faz o usuário digitar uma opção válida.
+        // se o ID digitado ï¿½ invï¿½lido, faz o usuï¿½rio digitar uma opï¿½ï¿½o vï¿½lida.
         while (!checarID(livros, contLivros, ID, &pos)){
             cout << "|ID nao encontrado, digite outro: ";
             cin >> ID;
@@ -309,7 +309,7 @@ void removerLivro(struct Livro livros[], int *contLivros) {
                 return;
             }
         }
-        // Confirmação
+        // Confirmaï¿½ï¿½o
         if(confirma()){
             if(*contLivros == 1){
                 livros = NULL;
@@ -334,7 +334,7 @@ void removerLivro(struct Livro livros[], int *contLivros) {
                         }
                     }
                 }
-                // O livro é removido da lista de livros
+                // O livro ï¿½ removido da lista de livros
                 (*contLivros)--;
                 cout << "|O livro de ID: " << ID << " foi removido" << endl;
             }
@@ -394,7 +394,7 @@ int main() {
             case 6:
                 cout << "|Programa encerrado." << endl;
                 break;
-            // Faz o usuário digitar uma opção válida.
+            // Faz o usuï¿½rio digitar uma opï¿½ï¿½o vï¿½lida.
             default:
                 cout << "|Digite uma opcao valida!" << endl;
         }
